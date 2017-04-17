@@ -142,5 +142,46 @@ class FlowerController < ApplicationController
         
         $ground.compact!
         
+                    # # 테스트용
+                    # $checked_cards = [[4,4],[1,1,1,1,11,11],[8,8,8,8,6,6],[10,10]]
+        
+        $final_pick = []
+        
+        4.times do |n|
+           
+           print $checked_cards[n]
+           puts ""
+           
+           $i = 0
+           while $i< $checked_cards[n].size do
+               puts $i
+               
+               $j = 0
+               while $j < $checked_cards[n].size do
+                   if $checked_cards[n][$i] != $checked_cards[n][$j]
+                       if ($j-$i) == 4
+                           $final_pick.push($checked_cards[n][$i])
+                           $i = $j
+                           break
+                       end
+                   end
+                   $j += 1
+               end
+               $i += 1
+           end
+        
+        end
+        
+        
+        print $in_ground
+        print $in_hand
+        print $ground
+        print $checked_cards
+        
+        print $in_ground.flatten.size + $ground.size + $in_hand.size + $checked_cards.flatten.size
+        
+        print $final_pick
+        
+        
     end
 end
