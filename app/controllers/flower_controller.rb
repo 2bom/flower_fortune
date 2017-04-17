@@ -40,148 +40,160 @@ class FlowerController < ApplicationController
                  {"num"=>12, "title"=>"비", "content"=>"손님, 친구"}]
                  
                  
-        # ## 화투점 시작 화투패 세팅
-        # # cards = []
-        # # 4.times do
-        # #   12.times do |n|
-        # #       cards.push(n+1)
-        # #   end
-        # # end
-        # # print cards.sort!
-        
-        $cards = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12]
-        
-        
-        # card 섞기
-        $t = Time.now.day
-        $t = $t.to_i
-        if $t > 32
-            @error_message = 'OPPS, SORRY. WE HAVE SOME ERROR.'
-        else
-            ($t+1).times do
-                $cards.shuffle!
-            end
-        end
-        
-        # 4장씩 깔기
-        $in_ground = []
-        $in_hand = []
-        
-        4.times do |n|
-            4.times do |m|
-                if m == 0
-                  $group = [] 
-                end
-                
-                print $group.push($cards.pop())
-            end
-            $in_ground.push($group)
-            print $in_ground
-        end
-        
-        $in_hand = $cards
-        
-                    # # 테스트용
-                    # $in_ground = [[4,2,2,1], [9,7,11,5], [11,3,7,2], [9,12,3,4]]
-                    # $in_hand = [6,5,7,3,12,10,6,8,3,1,6,4,12,4,8,9,12,8,10,6,11,9,1,10,10,5,11,8,1,2,7,5]
-                    
-        # 카드 맞추기
-        $check_index = 0
-        $checked_cards = [[],[],[],[]]
-        $ground = []
-        
-        def check_process()
-            pick = $in_hand.pop()
-            puts pick
+        def flower_fortune()
+                 
+            # ## 화투점 시작 화투패 세팅
+            # # cards = []
+            # # 4.times do
+            # #   12.times do |n|
+            # #       cards.push(n+1)
+            # #   end
+            # # end
+            # # print cards.sort!
             
-            4.times do |m|
-                puts 'check if matched'
-                if $in_ground[m].last == pick
-                    puts "matched!"
-                    
-                    $checked_cards[$check_index].push(pick)
-                    $checked_cards[$check_index].push($in_ground[m].pop())
-                    
-                    $check_index = ($check_index+1)%4
-                    
-                    check_process()
-                    break
-                elsif $ground.size != 0 && $ground.first == pick
-                    puts "matched! in hand"
-                    
-                    $checked_cards[$check_index].push(pick)
-                    $checked_cards[$check_index].push($ground.shift())
-                    
-                    $check_index = ($check_index+1)%4
-                    
-                    check_process()
-                    break
-                else
-                    if m == 3
-                        puts "in_hand.last : " + $in_hand.last.to_s
-                        $ground.push(pick)
-                    end
-                end
-                
-                
-             end
-        end
-        
-        
-        32.times do |n|
-            if $in_hand.size != 0
-                puts "n : #{n}"
-                
-                check_process()
+            $cards = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12]
+            
+            
+            # card 섞기
+            $t = Time.now.day
+            $t = $t.to_i
+            if $t > 32
+                @error_message = 'OPPS, SORRY. WE HAVE SOME ERROR.'
             else
-                puts "n : #{n} nil"
-                break
+                ($t+1).times do
+                    $cards.shuffle!
+                end
             end
             
-        end
-        
-        $ground.compact!
-        
-                    # # 테스트용
-                    # $checked_cards = [[4,4],[1,1,1,1,11,11],[8,8,8,8,6,6],[10,10]]
-        
-        $final_pick = []
-        
-        4.times do |n|
-           
-           print $checked_cards[n]
-           puts ""
-           
-           $i = 0
-           while $i< $checked_cards[n].size do
-               puts $i
+            # 4장씩 깔기
+            $in_ground = []
+            $in_hand = []
+            
+            4.times do |n|
+                4.times do |m|
+                    if m == 0
+                      $group = [] 
+                    end
+                    
+                    print $group.push($cards.pop())
+                end
+                $in_ground.push($group)
+                print $in_ground
+            end
+            
+            $in_hand = $cards
+            
+                        # # 테스트용
+                        # $in_ground = [[4,2,2,1], [9,7,11,5], [11,3,7,2], [9,12,3,4]]
+                        # $in_hand = [6,5,7,3,12,10,6,8,3,1,6,4,12,4,8,9,12,8,10,6,11,9,1,10,10,5,11,8,1,2,7,5]
+                        
+            # 카드 맞추기
+            $check_index = 0
+            $checked_cards = [[],[],[],[]]
+            $ground = []
+            
+            def check_process()
+                pick = $in_hand.pop()
+                puts pick
+                
+                4.times do |m|
+                    puts 'check if matched'
+                    if $in_ground[m].last == pick
+                        puts "matched!"
+                        
+                        $checked_cards[$check_index].push(pick)
+                        $checked_cards[$check_index].push($in_ground[m].pop())
+                        
+                        $check_index = ($check_index+1)%4
+                        
+                        check_process()
+                        break
+                    elsif $ground.size != 0 && $ground.first == pick
+                        puts "matched! in hand"
+                        
+                        $checked_cards[$check_index].push(pick)
+                        $checked_cards[$check_index].push($ground.shift())
+                        
+                        $check_index = ($check_index+1)%4
+                        
+                        check_process()
+                        break
+                    else
+                        if m == 3
+                            puts "in_hand.last : " + $in_hand.last.to_s
+                            $ground.push(pick)
+                        end
+                    end
+                    
+                    
+                 end
+            end
+            
+            
+            32.times do |n|
+                if $in_hand.size != 0
+                    puts "n : #{n}"
+                    
+                    check_process()
+                else
+                    puts "n : #{n} nil"
+                    break
+                end
+                
+            end
+            
+            $ground.compact!
+            
+                        # # 테스트용
+                        # $checked_cards = [[4,4],[1,1,1,1,11,11],[8,8,8,8,6,6],[10,10]]
+            
+            $final_pick = []
+            
+            4.times do |n|
                
-               $j = 0
-               while $j < $checked_cards[n].size do
-                   if $checked_cards[n][$i] != $checked_cards[n][$j]
-                       if ($j-$i) == 4
-                           $final_pick.push($checked_cards[n][$i])
-                           $i = $j
-                           break
+               print $checked_cards[n]
+               puts ""
+               
+               $i = 0
+               while $i< $checked_cards[n].size do
+                   puts $i
+                   
+                   $j = 0
+                   while $j < $checked_cards[n].size do
+                       if $checked_cards[n][$i] != $checked_cards[n][$j]
+                           if ($j-$i) == 4
+                               $final_pick.push($checked_cards[n][$i])
+                               $i = $j
+                               break
+                           end
                        end
+                       $j += 1
                    end
-                   $j += 1
+                   $i += 1
                end
-               $i += 1
-           end
-        
+            
+            end
+            
+            
+            print $in_ground
+            print $in_hand
+            print $ground
+            print $checked_cards
+            
+            print $in_ground.flatten.size + $ground.size + $in_hand.size + $checked_cards.flatten.size
+            
+            print $final_pick
+            
+            
+            
+            if $final_pick.size == 0
+                flower_fortune()
+            else
+                puts "FINAL!!!! : #{$final_pick}"
+            end
         end
         
-        
-        print $in_ground
-        print $in_hand
-        print $ground
-        print $checked_cards
-        
-        print $in_ground.flatten.size + $ground.size + $in_hand.size + $checked_cards.flatten.size
-        
-        print $final_pick
-        
+        flower_fortune()
         
     end
 end
