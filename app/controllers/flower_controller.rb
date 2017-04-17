@@ -81,5 +81,66 @@ class FlowerController < ApplicationController
         
         $in_hand = $cards
         
+                    # # 테스트용
+                    # $in_ground = [[4,2,2,1], [9,7,11,5], [11,3,7,2], [9,12,3,4]]
+                    # $in_hand = [6,5,7,3,12,10,6,8,3,1,6,4,12,4,8,9,12,8,10,6,11,9,1,10,10,5,11,8,1,2,7,5]
+                    
+        # 카드 맞추기
+        $check_index = 0
+        $checked_cards = [[],[],[],[]]
+        $ground = []
+        
+        def check_process()
+            pick = $in_hand.pop()
+            puts pick
+            
+            4.times do |m|
+                puts 'check if matched'
+                if $in_ground[m].last == pick
+                    puts "matched!"
+                    
+                    $checked_cards[$check_index].push(pick)
+                    $checked_cards[$check_index].push($in_ground[m].pop())
+                    
+                    $check_index = ($check_index+1)%4
+                    
+                    check_process()
+                    break
+                elsif $ground.size != 0 && $ground.first == pick
+                    puts "matched! in hand"
+                    
+                    $checked_cards[$check_index].push(pick)
+                    $checked_cards[$check_index].push($ground.shift())
+                    
+                    $check_index = ($check_index+1)%4
+                    
+                    check_process()
+                    break
+                else
+                    if m == 3
+                        puts "in_hand.last : " + $in_hand.last.to_s
+                        $ground.push(pick)
+                    end
+                end
+                
+                
+             end
+        end
+        
+        
+        32.times do |n|
+            if $in_hand.size != 0
+                puts "n : #{n}"
+                
+                check_process()
+            else
+                puts "n : #{n} nil"
+                break
+            end
+            
+        end
+        
+        $ground.compact!
+        
     end
 end
