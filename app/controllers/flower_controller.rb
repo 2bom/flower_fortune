@@ -38,6 +38,18 @@ class FlowerController < ApplicationController
                  {"num"=>10, "title"=>"단풍", "content"=>"걱정, 불안"},
                  {"num"=>11, "title"=>"오동", "content"=>"돈, 수입"},
                  {"num"=>12, "title"=>"비", "content"=>"손님, 친구"}]
+                 
+                 
+        # ## 화투점 시작 화투패 세팅
+        # # cards = []
+        # # 4.times do
+        # #   12.times do |n|
+        # #       cards.push(n+1)
+        # #   end
+        # # end
+        # # print cards.sort!
+        
+        $cards = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12]
         
     end
 end
