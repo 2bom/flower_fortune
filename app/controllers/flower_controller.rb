@@ -51,5 +51,35 @@ class FlowerController < ApplicationController
         
         $cards = [1, 1, 1, 1, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 10, 10, 10, 10, 11, 11, 11, 11, 12, 12, 12, 12]
         
+        
+        # card 섞기
+        $t = Time.now.day
+        $t = $t.to_i
+        if $t > 32
+            @error_message = 'OPPS, SORRY. WE HAVE SOME ERROR.'
+        else
+            ($t+1).times do
+                $cards.shuffle!
+            end
+        end
+        
+        # 4장씩 깔기
+        $in_ground = []
+        $in_hand = []
+        
+        4.times do |n|
+            4.times do |m|
+                if m == 0
+                  $group = [] 
+                end
+                
+                print $group.push($cards.pop())
+            end
+            $in_ground.push($group)
+            print $in_ground
+        end
+        
+        $in_hand = $cards
+        
     end
 end
